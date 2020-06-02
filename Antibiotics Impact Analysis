@@ -1,1 +1,83 @@
 
+library(ggplot2)
+library(tidyverse)
+burtin = read.csv("a1-burtin.csv")
+burtin 
+summary(burtin)
+
+names(burtin)
+
+str(burtin)
+head(burtin)
+
+ncol(burtin)
+nrow(burtin)
+
+ggplot(burtin, aes(y= Penicilin, x=Bacteria, label=Bacteria, fill = Impact)) + 
+  geom_bar(stat='identity', aes(color = Antibiotic), width=.5)  +
+  scale_fill_manual(name="Impact", 
+                    labels = c("Negative", "Positive"), 
+                    values = c("negative"="#f8766d", "positive"="#00ba38")) + 
+  scale_color_manual(name="Antibiotic", 
+                     labels = c("Penicilin","Streptomycin","Neomycin"), 
+                     values = c("blue","black", "Orange"))+
+  ylim(c(0,10))+
+  labs(subtitle="Shows the facts of the Penicilin killing Bacteria ", 
+       title= "Bacteria Vs Penicilin", y = "Value") + 
+  coord_flip()
+
+
+ggplot(burtin, aes(y= Streptomycin, x=Bacteria, label=Bacteria, fill = Impact)) + 
+    geom_bar(stat='identity', aes(color = Antibiotic), width=.5)  +
+    scale_fill_manual(name="Impact", 
+                      labels = c("Negative", "Positive"), 
+                      values = c("negative"="#f8766d", "positive"="#00ba38")) + 
+  scale_color_manual(name="Antibiotic", 
+                     labels = c("Streptomycin","Penicilin","Neomycin"), 
+                     values = c("Orange","black", "blue"))+
+    ylim(c(0,16))+
+    labs(subtitle="Shows the facts of the Streptomycin killing Bacteria", 
+         title= "Bacteria Vs Streptomycin",y = "Value") + 
+    coord_flip()
+
+
+ggplot(burtin, aes(y= Neomycin, x=Bacteria, label=Bacteria, fill=Impact)) + 
+  geom_bar(stat='identity', aes(color = Antibiotic), width=.5)  +
+  scale_fill_manual(name="Impact", 
+                    labels = c("Negative", "Positive"), 
+                    values = c("negative"="#f8766d", "positive"="#00ba38")) + 
+  scale_color_manual(name="Antibiotic", 
+                     labels = c("Neomycin","Penicilin","Streptomycin"), 
+                     values = c("blue","black", "Yellow"))+
+  
+  labs(subtitle="Shows the facts of the Neomycin killing Bacteria", 
+       title= "Bacteria Vs Neomycin", y = "Value") + 
+  coord_flip()
+
+
+theme_set(theme_grey())
+ggplot(burtin, aes(y =Value, x=Bacteria.Name, label=Bacteria, fill = Impact)) + 
+  geom_bar(stat='identity', aes(color= Antibiotic), width=0.5)  +
+  scale_fill_manual(name="Impact", 
+                    labels = c("Negative", "Positive"), 
+                    values = c("negative"="#f8766d", "positive"="#00ba38")
+                    ) +
+  scale_color_manual(name="Antibiotic", 
+                     labels = c("Neomycin", "Penicilin","Streptomycin"), 
+                     values = c("blue", "black", "Orange"))+
+  
+  scale_y_continuous(limits=c(0,15), expand = c(0, 0)) +
+  labs(subtitle="Shows the facts of the bacteria with All Antibiotics", 
+       title= "Bacteria Vs Antibiotics", x = "Bacteria") + 
+  coord_flip()
+
+
+ggplot(burtin, aes(y =Value , x = Antibiotic))+
+  geom_bar(stat = 'identity', aes(fill = factor(Impact)), width = 0.9) + 
+  theme(axis.text.x = element_text(angle=65, vjust=.6)) +
+  scale_y_continuous(limits=c(0,190), expand = c(0, 0)) +
+  labs(x = "Antibiotics",y = "Facts", title="Antibiotics and its Impact", 
+       subtitle="Negative and Positive affects of Antibiotics for killing Bacteria")
+
+
+
